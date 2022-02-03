@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "channel-assessment-repo", "channel-assessment-repo\channel-assessment-repo.csproj", "{C348D663-93AE-4318-B90F-A1C3A1FEFB7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChannelEngineLibrary", "ChannelEngineLibrary\ChannelEngineLibrary.csproj", "{70E7FF40-B975-4997-B99A-F890F06B7F51}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C348D663-93AE-4318-B90F-A1C3A1FEFB7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C348D663-93AE-4318-B90F-A1C3A1FEFB7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C348D663-93AE-4318-B90F-A1C3A1FEFB7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C348D663-93AE-4318-B90F-A1C3A1FEFB7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70E7FF40-B975-4997-B99A-F890F06B7F51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70E7FF40-B975-4997-B99A-F890F06B7F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70E7FF40-B975-4997-B99A-F890F06B7F51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70E7FF40-B975-4997-B99A-F890F06B7F51}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {013992C4-5CE3-4132-81E1-8C0B1F5B0CB0}
+	EndGlobalSection
+EndGlobal
