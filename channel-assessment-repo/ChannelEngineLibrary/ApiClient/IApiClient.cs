@@ -5,6 +5,8 @@
 
     public interface IApiClient
     {
-        Task<OrderResponseModel> GetInprogressOrders();
+        Task<ApiResponseModel<Order>> GetInprogressOrders();
+
+        Task<ApiResponseModel<Product>> GetProductByProductNo(string productNo);
     }
 }

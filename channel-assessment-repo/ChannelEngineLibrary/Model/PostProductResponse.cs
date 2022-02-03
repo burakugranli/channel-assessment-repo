@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace ChannelEngineLibrary.Model
 {
-    public sealed class OrderResponseModel
+    class PostProductResponse
     {
-        public IEnumerable<Order> Content { get; set; }
+        public int RejectedCount { get; set; }
+
+        public int AcceptedCount { get; set; }
     }
 }

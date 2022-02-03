@@ -1,4 +1,5 @@
 ﻿using ChannelEngineLibrary.ApiClient;
+using ChannelEngineLibrary.Business;
 using ChannelEngineLibrary.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +15,9 @@ namespace channel_assessment_repo
             IServiceCollection serviceCollection = Initialize();
             ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
-            IApiClient client = serviceProvider.GetService<IApiClient>();
+            ApplicationBusiness client = serviceProvider.GetService<ApplicationBusiness>();
+
+            await client.RunAsync();
 
         }
 
@@ -27,7 +30,9 @@ namespace channel_assessment_repo
             IConfigurationRoot configuration = builder.Build();
 
             IServiceCollection serviceCollection = new ServiceCollection();
+            
             serviceCollection.AddSingleton<IConfiguration>(configuration);
+            serviceCollection.AddSingleton<ApplicationBusiness>();
             serviceCollection.AddSingleton<IApiClientConfiguration, ApiClientConfiguration>();
             serviceCollection.AddSingleton<IApiClient, ApiClient>();
 
