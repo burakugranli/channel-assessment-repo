@@ -18,15 +18,15 @@ namespace ChannelEngineLibrary.Service
             this.apiClient = apiClient;
         }
 
-        public async Task<IEnumerable<Product>> GetTop5ProductFromOrders()
+        public async Task<IEnumerable<ProductResponse>> GetTop5ProductFromOrders()
         {
             var orderModel = await this.apiClient.GetInprogressOrders();
 
-            var lines = GetLines(orderModel.Content);
+            var lines = this.GetLines(orderModel.Content);
 
             var products = this.LinesToProducts(lines);
 
-            var top5 = GetTop5Products(products);
+            var top5 = this.GetTop5Products(products);
 
             return top5;
         }

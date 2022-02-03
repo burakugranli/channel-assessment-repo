@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "channel-assessment-repo", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChannelEngineLibrary", "ChannelEngineLibrary\ChannelEngineLibrary.csproj", "{70E7FF40-B975-4997-B99A-F890F06B7F51}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChannelEngineLibrary.Test", "ChannelEngineLibrary.Test\ChannelEngineLibrary.Test.csproj", "{C364034B-58A3-4502-A091-FE2479A41F31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{70E7FF40-B975-4997-B99A-F890F06B7F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70E7FF40-B975-4997-B99A-F890F06B7F51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70E7FF40-B975-4997-B99A-F890F06B7F51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C364034B-58A3-4502-A091-FE2479A41F31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C364034B-58A3-4502-A091-FE2479A41F31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C364034B-58A3-4502-A091-FE2479A41F31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C364034B-58A3-4502-A091-FE2479A41F31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

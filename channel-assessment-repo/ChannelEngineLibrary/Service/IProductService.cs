@@ -6,6 +6,6 @@
 
     public interface IProductService
     {
-        Task<IEnumerable<Product>> GetTop5ProductFromOrders();
+        Task<IEnumerable<ProductResponse>> GetTop5ProductFromOrders();
     }
 }
