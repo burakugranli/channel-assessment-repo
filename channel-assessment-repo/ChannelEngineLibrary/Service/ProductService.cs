@@ -7,18 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChannelEngineLibrary.Business
+namespace ChannelEngineLibrary.Service
 {
-    public sealed class ApplicationBusiness
+    public sealed class ProductService : IProductService
     {
         private readonly IApiClient apiClient;
 
-        public ApplicationBusiness(IApiClient apiClient)
+        public ProductService(IApiClient apiClient)
         {
             this.apiClient = apiClient;
         }
 
-        public async Task RunAsync()
+        public async Task<IEnumerable<Product>> GetTop5ProductFromOrders()
         {
             var orderModel = await this.apiClient.GetInprogressOrders();
 
@@ -28,11 +28,12 @@ namespace ChannelEngineLibrary.Business
 
             var top5 = GetTop5Products(products);
 
+            return top5;
         }
 
         
 
-        public IEnumerable<ProductResponse> GetTop5Products(IEnumerable<ProductResponse> products) 
+        private IEnumerable<ProductResponse> GetTop5Products(IEnumerable<ProductResponse> products) 
         {
             return products.OrderByDescending(x => x.TotalQuantity).Take(5).ToList();
         }

@@ -1,13 +1,12 @@
-﻿using ChannelEngineLibrary.ApiClient;
-using ChannelEngineLibrary.Business;
-using ChannelEngineLibrary.Configuration;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.IO;
-
-namespace channel_assessment_repo
+﻿namespace channel_assessment_repo
 {
+    using ChannelEngineLibrary.ApiClient;
+    using ChannelEngineLibrary.Configuration;
+    using ChannelEngineLibrary.Service;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+
+    using System.IO;
     class Program
     {
         static async System.Threading.Tasks.Task Main(string[] args)
@@ -15,9 +14,9 @@ namespace channel_assessment_repo
             IServiceCollection serviceCollection = Initialize();
             ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
-            ApplicationBusiness client = serviceProvider.GetService<ApplicationBusiness>();
+            ProductService client = serviceProvider.GetService<ProductService>();
 
-            await client.RunAsync();
+            await client.GetTop5ProductFromOrders();
 
         }
 
@@ -32,7 +31,7 @@ namespace channel_assessment_repo
             IServiceCollection serviceCollection = new ServiceCollection();
             
             serviceCollection.AddSingleton<IConfiguration>(configuration);
-            serviceCollection.AddSingleton<ApplicationBusiness>();
+            serviceCollection.AddSingleton<ProductService>();
             serviceCollection.AddSingleton<IApiClientConfiguration, ApiClientConfiguration>();
             serviceCollection.AddSingleton<IApiClient, ApiClient>();
 

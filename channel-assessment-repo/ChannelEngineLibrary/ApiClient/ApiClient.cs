@@ -45,7 +45,7 @@
             return products;
         }
 
-        public async Task<ApiResponseModel<Product>> UpdateProduct(Product product)
+        public async Task<ApiResponseModel<Product>> PostProduct(Product product)
         {
             var restClient = new RestClient();
 
