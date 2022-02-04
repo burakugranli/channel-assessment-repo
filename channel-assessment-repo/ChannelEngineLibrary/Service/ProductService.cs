@@ -1,14 +1,12 @@
-﻿using ChannelEngineLibrary.ApiClient;
-using ChannelEngineLibrary.Model;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChannelEngineLibrary.Service
+﻿namespace ChannelEngineLibrary.Service
 {
+    using ChannelEngineLibrary.ApiClient;
+    using ChannelEngineLibrary.Model;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public sealed class ProductService : IProductService
     {
         private readonly IApiClient apiClient;
@@ -22,11 +20,16 @@ namespace ChannelEngineLibrary.Service
         {
             var orderModel = await this.apiClient.GetInprogressOrders();
 
-            var lines = this.GetLines(orderModel.Content);
+            if (orderModel.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                throw new Exception("An error occurred while getting orders");
+            }
 
-            var products = this.LinesToProducts(lines);
+            IEnumerable<Line> lines = this.GetLines(orderModel.Content);
 
-            var top5 = this.GetTop5Products(products);
+            IEnumerable<ProductResponse> products = this.LinesToProducts(lines);
+
+            IEnumerable<ProductResponse> top5 = this.GetTop5Products(products);
 
             return top5;
         }
@@ -35,11 +38,21 @@ namespace ChannelEngineLibrary.Service
         {
             ApiResponseModel<Product> productResponse = await this.apiClient.GetProductByProductNo(productNo);
 
+            if (productResponse.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                throw new Exception("An error occurred while getting products");
+            }
+
             Product product = productResponse.Content.First();
 
             product.Stock = 25;
 
             ApiResponseModel<PostProductResponse> postProductResponse =  await this.apiClient.PostProduct(product);
+
+            if (postProductResponse.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                throw new Exception("An error occurred while updating products");
+            }
 
             return postProductResponse;
         }
@@ -85,7 +98,6 @@ namespace ChannelEngineLibrary.Service
             {
                 lines.AddRange(order.Lines);
             }
-
             return lines;
         }
     }
