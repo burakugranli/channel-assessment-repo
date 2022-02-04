@@ -8,6 +8,6 @@
     {
         Task<IEnumerable<ProductResponse>> GetTop5ProductFromOrders();
 
-        Task<ApiResponseModel<PostProductResponse>> UpdateProductStock(string productNo);
+        Task<PostProductResponse> UpdateProductStock(string productNo);
     }
 }

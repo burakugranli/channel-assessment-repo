@@ -22,7 +22,7 @@ namespace ChannelEngineLibrary.Test
             };
             
             var orders = this.CreateOrderList();
-            ApiResponseModel<Order> response = new ApiResponseModel<Order>
+            var response = new ApiResponseModel<IEnumerable<Order>>
             {
                 Content = orders,
                 StatusCode = System.Net.HttpStatusCode.OK,
@@ -59,7 +59,7 @@ namespace ChannelEngineLibrary.Test
             };
 
             var orders = this.CreateOrderListWith3Products();
-            ApiResponseModel<Order> response = new ApiResponseModel<Order>
+            var response = new ApiResponseModel<IEnumerable<Order>>
             {
                 Content = orders,
                 StatusCode = System.Net.HttpStatusCode.OK,
@@ -89,7 +89,7 @@ namespace ChannelEngineLibrary.Test
         public async void GetTop5ProductFromOrdersTest_GetProductError()
         {
             // Arrange
-            ApiResponseModel<Order> response = new ApiResponseModel<Order>
+            var response = new ApiResponseModel<IEnumerable<Order>>
             {
                 StatusCode = System.Net.HttpStatusCode.InternalServerError,
                 Success = false

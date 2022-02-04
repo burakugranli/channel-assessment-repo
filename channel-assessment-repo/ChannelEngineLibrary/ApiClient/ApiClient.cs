@@ -4,6 +4,7 @@
     using ChannelEngineLibrary.Model;
     using Newtonsoft.Json;
     using RestSharp;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public sealed class ApiClient : IApiClient
@@ -15,7 +16,7 @@
             this.configuration = configuration;
         }
 
-        public async Task<ApiResponseModel<Order>> GetInprogressOrders()
+        public async Task<ApiResponseModel<IEnumerable<Order>>> GetInprogressOrders()
         {
             var restClient = new RestClient();
 
@@ -25,12 +26,12 @@
 
             var response = await restClient.ExecuteGetAsync(restRequest);
 
-            var responseContent = JsonConvert.DeserializeObject<ApiResponseModel<Order>>(response.Content);
+            var responseContent = JsonConvert.DeserializeObject<ApiResponseModel<IEnumerable<Order>>>(response.Content);
 
             return responseContent;
         }
 
-        public async Task<ApiResponseModel<Product>> GetProductByProductNo(string productNo) 
+        public async Task<ApiResponseModel<IEnumerable<Product>>> GetProductByProductNo(string productNo) 
         {
             var restClient = new RestClient();
 
@@ -40,7 +41,13 @@
 
             var response = await restClient.ExecuteGetAsync(restRequest);
 
-            var products = JsonConvert.DeserializeObject<ApiResponseModel<Product>>(response.Content);
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+
+            var products = JsonConvert.DeserializeObject<ApiResponseModel<IEnumerable<Product>>>(response.Content, settings);
 
             return products;
         }
@@ -52,7 +59,7 @@
             string uri = string.Format("{0}products?apikey={1}", this.configuration.ApiUrl, this.configuration.ApiKey);
             var restRequest = new RestRequest(uri, Method.Post);
             restRequest.AddHeader("Content-Type", "application/json");
-            restRequest.AddBody(product);
+            restRequest.AddBody(new Product[] { product });
 
             var response = await restClient.ExecutePostAsync(restRequest);
 

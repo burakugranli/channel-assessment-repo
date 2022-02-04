@@ -34,9 +34,9 @@
             return top5;
         }
 
-        public async Task<ApiResponseModel<PostProductResponse>> UpdateProductStock(string productNo) 
+        public async Task<PostProductResponse> UpdateProductStock(string productNo) 
         {
-            ApiResponseModel<Product> productResponse = await this.apiClient.GetProductByProductNo(productNo);
+            ApiResponseModel<IEnumerable<Product>> productResponse = await this.apiClient.GetProductByProductNo(productNo);
 
             if (productResponse.StatusCode != System.Net.HttpStatusCode.OK)
             {
@@ -54,7 +54,7 @@
                 throw new Exception("An error occurred while updating products");
             }
 
-            return postProductResponse;
+            return postProductResponse.Content;
         }
 
         private IEnumerable<ProductResponse> GetTop5Products(IEnumerable<ProductResponse> products) 

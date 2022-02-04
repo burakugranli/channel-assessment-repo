@@ -1,15 +1,14 @@
-﻿using ChannelEngineConsoleApp.Business;
-using ChannelEngineLibrary.ApiClient;
-using ChannelEngineLibrary.Configuration;
-using ChannelEngineLibrary.Service;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace ChannelEngineConsoleApp
+﻿namespace ChannelEngineConsoleApp
 {
+    using ChannelEngineConsoleApp.Business;
+    using ChannelEngineLibrary.ApiClient;
+    using ChannelEngineLibrary.Configuration;
+    using ChannelEngineLibrary.Service;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using System.IO;
+    using System.Threading.Tasks;
+
     class Program
     {
         public static async Task Main(string[] args)

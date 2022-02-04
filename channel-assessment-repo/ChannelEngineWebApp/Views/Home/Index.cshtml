@@ -22,7 +22,7 @@
                     <th data-defaultsign="AZ">Name</th>
                     <th data-defaultsign="AZ">Gtin</th>
                     <th data-defaultsign="Az">Total Quantity</th>
-                    
+
                 </tr>
             </thead>
 
@@ -38,4 +38,23 @@
             }
         }
     </table>
+
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th colspan="2" align="center">Person Details</th>
+            </tr>
+            <tr>
+                <td>Name: </td>
+                <td>
+                    @Html.TextBox("productNo")
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+    }
 </div>  

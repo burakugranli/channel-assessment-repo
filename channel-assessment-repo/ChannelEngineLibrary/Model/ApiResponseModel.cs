@@ -9,7 +9,7 @@ namespace ChannelEngineLibrary.Model
 {
     public sealed class ApiResponseModel<T>
     {
-        public IEnumerable<T> Content { get; set; }
+        public T Content { get; set; }
 
         public int Count { get; set; }
 
