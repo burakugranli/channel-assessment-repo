@@ -1,23 +1,25 @@
-﻿namespace channel_assessment_repo
-{
-    using ChannelEngineLibrary.ApiClient;
-    using ChannelEngineLibrary.Configuration;
-    using ChannelEngineLibrary.Service;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
+﻿using ChannelEngineConsoleApp.Business;
+using ChannelEngineLibrary.ApiClient;
+using ChannelEngineLibrary.Configuration;
+using ChannelEngineLibrary.Service;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
-    using System.IO;
+namespace ChannelEngineConsoleApp
+{
     class Program
     {
-        static async System.Threading.Tasks.Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
             IServiceCollection serviceCollection = Initialize();
             ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
-            ProductService client = serviceProvider.GetService<ProductService>();
+            ApplicationBusiness business = serviceProvider.GetService<ApplicationBusiness>();
 
-            await client.GetTop5ProductFromOrders();
-
+            await business.Run();
         }
 
         private static IServiceCollection Initialize()
@@ -29,9 +31,10 @@
             IConfigurationRoot configuration = builder.Build();
 
             IServiceCollection serviceCollection = new ServiceCollection();
-            
+
+            serviceCollection.AddSingleton<ApplicationBusiness>();
             serviceCollection.AddSingleton<IConfiguration>(configuration);
-            serviceCollection.AddSingleton<ProductService>();
+            serviceCollection.AddSingleton<IProductService, ProductService>();
             serviceCollection.AddSingleton<IApiClientConfiguration, ApiClientConfiguration>();
             serviceCollection.AddSingleton<IApiClient, ApiClient>();
 
