@@ -31,7 +31,18 @@ namespace ChannelEngineLibrary.Service
             return top5;
         }
 
-        
+        public async Task<ApiResponseModel<PostProductResponse>> UpdateProductStock(string productNo) 
+        {
+            ApiResponseModel<Product> productResponse = await this.apiClient.GetProductByProductNo(productNo);
+
+            Product product = productResponse.Content.First();
+
+            product.Stock = 25;
+
+            ApiResponseModel<PostProductResponse> postProductResponse =  await this.apiClient.PostProduct(product);
+
+            return postProductResponse;
+        }
 
         private IEnumerable<ProductResponse> GetTop5Products(IEnumerable<ProductResponse> products) 
         {

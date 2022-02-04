@@ -8,5 +8,7 @@
         Task<ApiResponseModel<Order>> GetInprogressOrders();
 
         Task<ApiResponseModel<Product>> GetProductByProductNo(string productNo);
+
+        Task<ApiResponseModel<PostProductResponse>> PostProduct(Product product);
     }
 }

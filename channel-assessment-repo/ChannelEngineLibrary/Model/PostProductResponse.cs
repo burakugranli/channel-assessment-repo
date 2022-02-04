@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChannelEngineLibrary.Model
+﻿namespace ChannelEngineLibrary.Model
 {
-    class PostProductResponse
+    public sealed class PostProductResponse
     {
         public int RejectedCount { get; set; }
 

@@ -45,17 +45,18 @@
             return products;
         }
 
-        public async Task<ApiResponseModel<Product>> PostProduct(Product product)
+        public async Task<ApiResponseModel<PostProductResponse>> PostProduct(Product product)
         {
             var restClient = new RestClient();
 
             string uri = string.Format("{0}products?apikey={1}", this.configuration.ApiUrl, this.configuration.ApiKey);
             var restRequest = new RestRequest(uri, Method.Post);
             restRequest.AddHeader("Content-Type", "application/json");
+            restRequest.AddBody(product);
 
             var response = await restClient.ExecutePostAsync(restRequest);
 
-            var products = JsonConvert.DeserializeObject<ApiResponseModel<Product>>(response.Content);
+            var products = JsonConvert.DeserializeObject<ApiResponseModel<PostProductResponse>>(response.Content);
 
             return products;
         }

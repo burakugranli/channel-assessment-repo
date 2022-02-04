@@ -7,5 +7,7 @@
     public interface IProductService
     {
         Task<IEnumerable<ProductResponse>> GetTop5ProductFromOrders();
+
+        Task<ApiResponseModel<PostProductResponse>> UpdateProductStock(string productNo);
     }
 }
