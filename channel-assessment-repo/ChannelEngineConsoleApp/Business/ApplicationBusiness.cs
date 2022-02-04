@@ -26,6 +26,12 @@
                 Console.WriteLine($"Product No : {product.MerchantProductNo}, Product Name : {product.Name}, Product Gtin : {product.Gtin}, Total Quantity : {product.TotalQuantity}");
             }
 
+            Console.WriteLine("Update product id 001201-S is in progress...");
+
+            await this.productService.UpdateProductStock("001201-S");
+
+            Console.WriteLine("product id 001201-S is updated...");
+
             Console.ReadKey();
         }
     }
