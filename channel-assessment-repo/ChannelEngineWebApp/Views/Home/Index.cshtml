@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ChannelEngineLibrary.Model.ProductResponse>
+@{
+    ViewBag.Title = "Products";
+
+}
+<br />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped table-hover">
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="10">No Record's found.</td>
+            </tr>
+
+        }
+        else
+        {
+            <thead>
+                <tr class="danger">
+                    <th data-defaultsign="AZ">Product No</th>
+                    <th data-defaultsign="AZ">Name</th>
+                    <th data-defaultsign="AZ">Gtin</th>
+                    <th data-defaultsign="Az">Total Quantity</th>
+                    
+                </tr>
+            </thead>
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MerchantProductNo</td>
+                    <td>@item.Name</td>
+                    <td>@item.Gtin</td>
+                    <td>@item.TotalQuantity</td>
+                </tr>
+
+            }
+        }
+    </table>
+</div>  
