@@ -4,6 +4,7 @@ namespace ChannelEngineLibrary.Test
     using ChannelEngineLibrary.Model;
     using ChannelEngineLibrary.Service;
     using Moq;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Xunit;
@@ -82,6 +83,27 @@ namespace ChannelEngineLibrary.Test
             {
                 Assert.Equal(expectedTopProductNos[i], actualList[i].MerchantProductNo);
             }
+        }
+
+        [Fact]
+        public async void GetTop5ProductFromOrdersTest_GetProductError()
+        {
+            // Arrange
+            ApiResponseModel<Order> response = new ApiResponseModel<Order>
+            {
+                StatusCode = System.Net.HttpStatusCode.InternalServerError,
+                Success = false
+            };
+
+            Mock<IApiClient> apiClientMock = new Mock<IApiClient>();
+
+            apiClientMock.Setup(x => x.GetInprogressOrders()).ReturnsAsync(response);
+
+            IProductService sut = new ProductService(apiClientMock.Object);
+
+            // Assert
+            Exception exception = await Assert.ThrowsAsync<Exception>(() => sut.GetTop5ProductFromOrders());
+            Assert.Equal("An error occurred while getting orders", exception.Message);
         }
 
         private IEnumerable<Order> CreateOrderList() 
