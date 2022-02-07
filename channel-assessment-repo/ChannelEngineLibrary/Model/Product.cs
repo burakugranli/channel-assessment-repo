@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace ChannelEngineLibrary.Model
+﻿namespace ChannelEngineLibrary.Model
 {
+    using System.Collections.Generic;
+
     public sealed class Product
     {
         public bool IsActive { get; set; }

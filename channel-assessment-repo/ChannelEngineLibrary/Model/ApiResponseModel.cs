@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChannelEngineLibrary.Model
+﻿namespace ChannelEngineLibrary.Model
 {
+    using System.Net;
+
     public sealed class ApiResponseModel<T>
     {
         public T Content { get; set; }

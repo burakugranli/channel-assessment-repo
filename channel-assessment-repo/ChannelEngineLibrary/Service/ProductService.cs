@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Threading.Tasks;
 
     public sealed class ProductService : IProductService
@@ -19,6 +20,11 @@
         public async Task<IEnumerable<ProductResponse>> GetTop5ProductFromOrders()
         {
             var orderModel = await this.apiClient.GetInprogressOrders();
+
+            if (orderModel.StatusCode.Equals(HttpStatusCode.BadRequest))
+            {
+                throw new Exception("Bad request");
+            }
 
             if (orderModel.StatusCode != System.Net.HttpStatusCode.OK)
             {
@@ -37,6 +43,11 @@
         public async Task<PostProductResponse> UpdateProductStock(string productNo) 
         {
             ApiResponseModel<IEnumerable<Product>> productResponse = await this.apiClient.GetProductByProductNo(productNo);
+
+            if (productResponse.StatusCode.Equals(HttpStatusCode.BadRequest))
+            {
+                throw new Exception("Bad request");
+            }
 
             if (productResponse.StatusCode != System.Net.HttpStatusCode.OK)
             {
