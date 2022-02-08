@@ -36,11 +36,9 @@
                 throw new Exception("An error occurred while getting orders");
             }
 
-            IEnumerable<Line> lines = this.GetLines(orderModel.Content);
+            var lines = orderModel.Content.SelectMany(x => x.Lines);
 
-            IEnumerable<ProductResponse> products = this.LinesToProducts(lines);
-
-            IEnumerable<ProductResponse> top5 = this.GetTop5Products(products);
+            IEnumerable<ProductResponse> top5 = this.GetTop5Products(lines);
 
             return top5;
         }
@@ -73,48 +71,27 @@
             return postProductResponse.Content;
         }
 
-        private IEnumerable<ProductResponse> GetTop5Products(IEnumerable<ProductResponse> products) 
+        private IEnumerable<ProductResponse> GetTop5Products(IEnumerable<Line> lines) 
         {
-            return products.OrderByDescending(x => x.TotalQuantity).Take(5).ToList();
-        }
+            List<ProductResponse> productResponses = lines.GroupBy(
+                l => l.MerchantProductNo,
+                (key, l) => new ProductResponse
+                {
+                    MerchantProductNo = key,
+                    TotalQuantity = l.Select(l => l.Quantity).Aggregate((a, b) => a + b),
+                })
+                .OrderByDescending(p => p.TotalQuantity)
+                .Take(5)
+                .ToList();
 
-        private IEnumerable<ProductResponse> LinesToProducts(IEnumerable<Line> lines)
-        {
-            var products = new Dictionary<string, ProductResponse>();
-
-            foreach (Line line in lines)
+            foreach (var productResp in productResponses)
             {
-                if (products.ContainsKey(line.MerchantProductNo))
-                {
-                    ProductResponse p = products[line.MerchantProductNo];
-                    p.TotalQuantity += line.Quantity;
-                    products[line.MerchantProductNo] = p;
-                }
-                else
-                {
-                    products[line.MerchantProductNo] = new ProductResponse
-                    {
-                        MerchantProductNo = line.MerchantProductNo,
-                        Name = line.Description,
-                        Gtin = line.Gtin,
-                        TotalQuantity = line.Quantity
-                    };
-                }
+                Line line = lines.Where(l => l.MerchantProductNo == productResp.MerchantProductNo).FirstOrDefault();
+                productResp.Gtin = line.Gtin;
+                productResp.Name = line.Description;
             }
 
-            return products.Values.ToList();
-        }
-
-
-        private IEnumerable<Line> GetLines(IEnumerable<Order> orders)
-        {
-            var lines = new List<Line>();
-
-            foreach (Order order in orders) 
-            {
-                lines.AddRange(order.Lines);
-            }
-            return lines;
+            return productResponses;
         }
     }
 }
