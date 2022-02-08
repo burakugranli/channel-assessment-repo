@@ -55,6 +55,9 @@
                 <td></td>
                 <td><input type="submit" value="Submit" /></td>
             </tr>
+            <tr>
+                @Html.Raw(TempData["msg"])
+            </tr>
         </table>
     }
 </div>  

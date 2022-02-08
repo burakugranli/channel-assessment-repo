@@ -34,9 +34,12 @@
             PostProductResponse response = await this.productService.UpdateProductStock(productNo);
             if (response.AcceptedCount > 0)
             {
-                return Ok("Success");
+                TempData["msg"] = string.Format($"<script>alert('Product {productNo} is updated');</script>");
+                return RedirectToAction("Index");
             }
-            return Ok("Error");
+
+            TempData["msg"] = string.Format($"<script>alert('Product {productNo} cannot be updated');</script>");
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
