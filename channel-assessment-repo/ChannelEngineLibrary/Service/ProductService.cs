@@ -21,6 +21,11 @@
         {
             var orderModel = await this.apiClient.GetInprogressOrders();
 
+            if (orderModel == null) 
+            {
+                throw new Exception("Internal Server Error");
+            }
+
             if (orderModel.StatusCode.Equals(HttpStatusCode.BadRequest))
             {
                 throw new Exception("Bad request");

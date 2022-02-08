@@ -127,6 +127,25 @@ namespace ChannelEngineLibrary.Test
             Assert.Equal("Bad request", exception.Message);
         }
 
+        [Fact]
+        public async void GetTop5ProductFromOrdersTest_InternalServerError()
+        {
+            // Arrange
+            var response = new ApiResponseModel<IEnumerable<Order>>
+            {
+                StatusCode = System.Net.HttpStatusCode.BadRequest,
+                Success = false
+            };
+
+            Mock<IApiClient> apiClientMock = new Mock<IApiClient>();
+
+            IProductService sut = new ProductService(apiClientMock.Object);
+
+            // Assert
+            Exception exception = await Assert.ThrowsAsync<Exception>(() => sut.GetTop5ProductFromOrders());
+            Assert.Equal("Internal Server Error", exception.Message);
+        }
+
         private IEnumerable<Order> CreateOrderList() 
         {
             
