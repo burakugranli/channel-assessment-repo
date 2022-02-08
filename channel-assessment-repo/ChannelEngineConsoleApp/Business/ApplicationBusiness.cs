@@ -31,7 +31,7 @@
             await this.productService.UpdateProductStock("001201-S");
 
             Console.WriteLine("product id 001201-S is updated...");
-
+            Console.WriteLine("Press a key to exit");
             Console.ReadKey();
         }
     }
