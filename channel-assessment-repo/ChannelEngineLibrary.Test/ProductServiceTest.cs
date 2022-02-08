@@ -106,6 +106,27 @@ namespace ChannelEngineLibrary.Test
             Assert.Equal("An error occurred while getting orders", exception.Message);
         }
 
+        [Fact]
+        public async void GetTop5ProductFromOrdersTest_BadRequest()
+        {
+            // Arrange
+            var response = new ApiResponseModel<IEnumerable<Order>>
+            {
+                StatusCode = System.Net.HttpStatusCode.BadRequest,
+                Success = false
+            };
+
+            Mock<IApiClient> apiClientMock = new Mock<IApiClient>();
+
+            apiClientMock.Setup(x => x.GetInprogressOrders()).ReturnsAsync(response);
+
+            IProductService sut = new ProductService(apiClientMock.Object);
+
+            // Assert
+            Exception exception = await Assert.ThrowsAsync<Exception>(() => sut.GetTop5ProductFromOrders());
+            Assert.Equal("Bad request", exception.Message);
+        }
+
         private IEnumerable<Order> CreateOrderList() 
         {
             
