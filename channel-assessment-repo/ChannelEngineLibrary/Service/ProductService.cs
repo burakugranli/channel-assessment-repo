@@ -17,7 +17,7 @@
             this.apiClient = apiClient;
         }
 
-        public async Task<IEnumerable<ProductResponse>> GetTop5ProductFromOrders()
+        public async Task<IEnumerable<ProductDto>> GetTop5ProductFromOrders()
         {
             var orderModel = await this.apiClient.GetInprogressOrders();
 
@@ -38,12 +38,12 @@
 
             var lines = orderModel.Content.SelectMany(x => x.Lines);
 
-            IEnumerable<ProductResponse> top5 = this.GetTop5Products(lines);
+            IEnumerable<ProductDto> top5 = this.GetTop5Products(lines);
 
             return top5;
         }
 
-        public async Task<PostProductResponse> UpdateProductStock(string productNo) 
+        public async Task<PostProductDto> UpdateProductStock(string productNo) 
         {
             ApiResponseModel<IEnumerable<Product>> productResponse = await this.apiClient.GetProductByProductNo(productNo);
 
@@ -61,7 +61,7 @@
 
             product.Stock = 25;
 
-            ApiResponseModel<PostProductResponse> postProductResponse =  await this.apiClient.PostProduct(product);
+            ApiResponseModel<PostProductDto> postProductResponse =  await this.apiClient.PostProduct(product);
 
             if (postProductResponse.StatusCode != System.Net.HttpStatusCode.OK)
             {
@@ -71,11 +71,11 @@
             return postProductResponse.Content;
         }
 
-        private IEnumerable<ProductResponse> GetTop5Products(IEnumerable<Line> lines) 
+        private IEnumerable<ProductDto> GetTop5Products(IEnumerable<Line> lines) 
         {
-            List<ProductResponse> productResponses = lines.GroupBy(
+            List<ProductDto> productResponses = lines.GroupBy(
                 l => l.MerchantProductNo,
-                (key, l) => new ProductResponse
+                (key, l) => new ProductDto
                 {
                     MerchantProductNo = key,
                     TotalQuantity = l.Select(l => l.Quantity).Aggregate((a, b) => a + b),

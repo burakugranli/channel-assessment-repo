@@ -17,7 +17,7 @@
 
         public async Task Run()
         {
-            IEnumerable<ProductResponse> productResponses = await this.productService.GetTop5ProductFromOrders();
+            IEnumerable<ProductDto> productResponses = await this.productService.GetTop5ProductFromOrders();
 
             Console.WriteLine("Top 5 products");
 

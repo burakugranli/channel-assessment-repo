@@ -1,6 +1,6 @@
 ﻿namespace ChannelEngineLibrary.Model
 {
-    public sealed class PostProductResponse
+    public sealed class PostProductDto
     {
         public int RejectedCount { get; set; }
 

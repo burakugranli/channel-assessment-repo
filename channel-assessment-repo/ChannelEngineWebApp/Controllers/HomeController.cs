@@ -24,14 +24,14 @@
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<ProductResponse> productResponses = await this.productService.GetTop5ProductFromOrders();
+            IEnumerable<ProductDto> productResponses = await this.productService.GetTop5ProductFromOrders();
             return View(productResponses.ToList());
         }
 
         [HttpPost]
         public async Task<IActionResult> Index(string productNo)
         {
-            PostProductResponse response = await this.productService.UpdateProductStock(productNo);
+            PostProductDto response = await this.productService.UpdateProductStock(productNo);
             if (response.AcceptedCount > 0)
             {
                 TempData["msg"] = string.Format($"<script>alert('Product {productNo} is updated');</script>");

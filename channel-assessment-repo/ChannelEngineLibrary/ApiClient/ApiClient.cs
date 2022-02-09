@@ -43,13 +43,13 @@
             return products;
         }
 
-        public async Task<ApiResponseModel<PostProductResponse>> PostProduct(Product product)
+        public async Task<ApiResponseModel<PostProductDto>> PostProduct(Product product)
         {
             string uri = string.Format("{0}products?apikey={1}", this.configuration.ApiUrl, this.configuration.ApiKey);
 
             var response =  await base.Post(uri, new Product[] { product });
 
-            var products = JsonConvert.DeserializeObject<ApiResponseModel<PostProductResponse>>(response.Content);
+            var products = JsonConvert.DeserializeObject<ApiResponseModel<PostProductDto>>(response.Content);
 
             return products;
         }

@@ -10,6 +10,6 @@
 
         Task<ApiResponseModel<IEnumerable<Product>>> GetProductByProductNo(string productNo);
 
-        Task<ApiResponseModel<PostProductResponse>> PostProduct(Product product);
+        Task<ApiResponseModel<PostProductDto>> PostProduct(Product product);
     }
 }

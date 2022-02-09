@@ -36,8 +36,8 @@ namespace ChannelEngineLibrary.Test
             IProductService productService = new ProductService(apiClientMock.Object);
 
             // Act
-            IEnumerable<ProductResponse> actualResponse = await productService.GetTop5ProductFromOrders();
-            IList<ProductResponse> actualList = actualResponse.ToList();
+            IEnumerable<ProductDto> actualResponse = await productService.GetTop5ProductFromOrders();
+            IList<ProductDto> actualList = actualResponse.ToList();
 
             // Assert
             Assert.Equal(5, actualList.Count());
@@ -73,8 +73,8 @@ namespace ChannelEngineLibrary.Test
             IProductService productService = new ProductService(apiClientMock.Object);
 
             // Act
-            IEnumerable<ProductResponse> actualResponse = await productService.GetTop5ProductFromOrders();
-            IList<ProductResponse> actualList = actualResponse.ToList();
+            IEnumerable<ProductDto> actualResponse = await productService.GetTop5ProductFromOrders();
+            IList<ProductDto> actualList = actualResponse.ToList();
 
             // Assert
             Assert.Equal(expectedTopProductNos.Count(), actualList.Count());

@@ -1,6 +1,6 @@
 ﻿namespace ChannelEngineLibrary.Model
 {
-    public sealed class ProductResponse
+    public sealed class ProductDto
     {
         public string Name { get; set; }
 

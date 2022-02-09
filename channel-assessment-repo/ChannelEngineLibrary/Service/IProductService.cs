@@ -6,8 +6,8 @@
 
     public interface IProductService
     {
-        Task<IEnumerable<ProductResponse>> GetTop5ProductFromOrders();
+        Task<IEnumerable<ProductDto>> GetTop5ProductFromOrders();
 
-        Task<PostProductResponse> UpdateProductStock(string productNo);
+        Task<PostProductDto> UpdateProductStock(string productNo);
     }
 }
