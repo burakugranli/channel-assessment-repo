@@ -31,16 +31,25 @@
                 throw new Exception("Bad request");
             }
 
-            if (orderModel.StatusCode != System.Net.HttpStatusCode.OK)
+            if (orderModel.StatusCode != HttpStatusCode.OK)
             {
                 throw new Exception("An error occurred while getting orders");
             }
 
             var lines = orderModel.Content.SelectMany(x => x.Lines);
 
-            IEnumerable<ProductDto> top5 = this.GetTop5Products(lines);
+            IEnumerable<ProductDto> top5Products = this.GetTop5Products(lines);
 
-            return top5;
+            foreach (var p in top5Products)
+            {
+                ApiResponseModel<IEnumerable<Product>> apiResponse = await this.apiClient.GetProductByProductNo(p.MerchantProductNo);
+                var product = apiResponse.Content.First();
+                p.Stock = product.Stock;
+                p.Name = product.Name;
+                p.Gtin = product.Ean;
+            }
+
+            return top5Products;
         }
 
         public async Task<PostProductDto> UpdateProductStock(string productNo) 
@@ -52,7 +61,7 @@
                 throw new Exception("Bad request");
             }
 
-            if (productResponse.StatusCode != System.Net.HttpStatusCode.OK)
+            if (productResponse.StatusCode != HttpStatusCode.OK)
             {
                 throw new Exception("An error occurred while getting products");
             }
@@ -63,7 +72,7 @@
 
             ApiResponseModel<PostProductDto> postProductResponse =  await this.apiClient.PostProduct(product);
 
-            if (postProductResponse.StatusCode != System.Net.HttpStatusCode.OK)
+            if (postProductResponse.StatusCode != HttpStatusCode.OK)
             {
                 throw new Exception("An error occurred while updating products");
             }
@@ -83,14 +92,7 @@
                 .OrderByDescending(p => p.TotalQuantity)
                 .Take(5)
                 .ToList();
-
-            foreach (var productResp in productResponses)
-            {
-                Line line = lines.Where(l => l.MerchantProductNo == productResp.MerchantProductNo).FirstOrDefault();
-                productResp.Gtin = line.Gtin;
-                productResp.Name = line.Description;
-            }
-
+            
             return productResponses;
         }
     }

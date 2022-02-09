@@ -23,7 +23,7 @@
 
             foreach (var product in productResponses)
             {
-                Console.WriteLine($"Product No : {product.MerchantProductNo}, Product Name : {product.Name}, Product Gtin : {product.Gtin}, Total Quantity : {product.TotalQuantity}");
+                Console.WriteLine($"Product No : {product.MerchantProductNo}, Product Name : {product.Name}, Product Gtin : {product.Gtin}, Total Quantity : {product.TotalQuantity}, Stock : {product.Stock}");
             }
 
             Console.WriteLine("Update product id 001201-S is in progress...");

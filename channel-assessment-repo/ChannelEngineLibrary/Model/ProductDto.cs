@@ -9,5 +9,7 @@
         public int TotalQuantity { get; set; }
 
         public string MerchantProductNo { get; set; }
+
+        public int Stock { get; set; }
     }
 }
